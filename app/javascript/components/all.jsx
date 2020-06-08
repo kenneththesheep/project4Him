@@ -1,7 +1,7 @@
 import React from 'react'
 
 import axios from 'axios';
-
+import { DragDropContext } from 'react-beautiful-dnd';
 
 class All extends React.Component {
     constructor(){
@@ -158,7 +158,11 @@ class All extends React.Component {
             </div>
 
 
+
             {inventories}
+            </div>
+            <div className ="col-4 text-center">
+                <h1>  Location 1  </h1>
             </div>
           </div>
           </div>

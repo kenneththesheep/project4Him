@@ -3,21 +3,51 @@ import React from "react";
 //import axios from 'axios';
 import All from "../components/all";
 import Request from "../components/request";
+import Header from "../components/header";
+import Homepage from "../pages/homepage"
+import {DndProvider} from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend"
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tabs";
 import TabContainer from "react-bootstrap/TabContainer";
 import TabPane from "react-bootstrap/TabPane";
+import axios from 'axios';
+
 class App extends React.Component {
     constructor() {
         super();
 
         this.state = {
             posts: [],
-            requestedStuff: []
+            requestedStuff: [],
+            unsortedStuff: []
         };
     }
 
+    repopulate(){
 
+              const url = '/inventories.json';
+
+              axios.get(url)
+                .then((response) => {
+
+                  const data = response.data.map((data,index)=>
+                    {
+                        return {
+                            id:index+1,
+                            icon: "⭕️",
+                            status: "Unsorted",
+                            title: "myLord",
+                            content: "Nothing"}
+                    }
+                    )
+
+                  this.setState({ unsortedStuff: data })
+
+                }).catch((error)=>{
+                  console.log(error);
+                })
+            }
 
     render() {
 
@@ -75,7 +105,16 @@ class App extends React.Component {
                             </div>
                         </div>
                     </Tab>
+                    <Tab eventKey="movement" title="Movement">
+                                    <DndProvider backend = { HTML5Backend }>
 
+                                    <Header />
+                                    <Homepage
+                                    unsortedArray = {this.state.unsortedStuff}
+                                    />
+
+                                </DndProvider>
+                    </Tab>
                     <Tab eventKey="request" title="Request">
                         <div className = "row">
                             <div className = "col-12 text-center">
@@ -93,6 +132,10 @@ class App extends React.Component {
                         </div>
                     </Tab>
                 </Tabs>
+            <button onClick={()=>{ this.repopulate() }}>
+                Repopulate
+            </button>
+
             </div>
         );
     }
