@@ -1,10 +1,20 @@
 class InventoriesController < ApplicationController
   before_action :set_inventory, only: [:show, :edit, :update, :destroy]
-
+before_action :authenticate_user!
+skip_before_action :verify_authenticity_token
   # GET /inventories
   # GET /inventories.json
   def index
-    @inventories = Inventory.all
+        @inventories = Inventory.where(user_id: current_user.id)
+    puts current_user.email
+        respond_to do |format|
+      format.json {
+          render :json => @inventories,
+          include: :user
+      }
+
+      format.html
+    end
   end
 
   # GET /inventories/1

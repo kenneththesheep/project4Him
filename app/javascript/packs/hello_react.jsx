@@ -5,9 +5,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
-
+import App from './app'
 const Hello = props => (
-  <div>Hello {props.name}!</div>
+  <div className = "container">
+  <App />
+
+  </div>
 )
 
 Hello.defaultProps = {

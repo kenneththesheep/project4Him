@@ -54,17 +54,19 @@ class All extends React.Component {
         //console.log(event.target.id);
         //console.log(this.state.inventories[parseInt(event.target.id)]);
         let addInventoryQuantity = this.state.inventories;
-        addInventoryQuantity[event.target.id].quantity++;
+        addInventoryQuantity[event.target.id].total_quantity++;
+        addInventoryQuantity[event.target.id].unsorted_quantity++;
         this.setState({inventories: addInventoryQuantity});
 
         const url = '/inventories/' + addInventoryQuantity[event.target.id].id + ".json";
-        const payload = {name: addInventoryQuantity[event.target.id].name, quantity: addInventoryQuantity[event.target.id].quantity, remarks: addInventoryQuantity[event.target.id].remarks, user_id: addInventoryQuantity[event.target.id].user_id }
+        const payload = {name: addInventoryQuantity[event.target.id].name, total_quantity: addInventoryQuantity[event.target.id].total_quantity, unsorted_quantity: addInventoryQuantity[event.target.id].unsorted_quantity, remarks: addInventoryQuantity[event.target.id].remarks, user_id: addInventoryQuantity[event.target.id].user_id }
         console.log (url);
         console.log(payload)
             axios
               .put(url, payload)
               .then(function (response) {
                 console.log(response)
+                console.log("Success")
               })
               .catch(function (error) {
                 console.log(error)
@@ -78,13 +80,14 @@ class All extends React.Component {
         //console.log(this.state.inventories[parseInt(event.target.id)]);
         let subtractInventoryQuantity = this.state.inventories;
 
-        if ( subtractInventoryQuantity[event.target.id].quantity>0)
+        if ( subtractInventoryQuantity[event.target.id].total_quantity>0)
         {
-        subtractInventoryQuantity[event.target.id].quantity--;
+        subtractInventoryQuantity[event.target.id].total_quantity--;
+        subtractInventoryQuantity[event.target.id].unsorted_quantity--;
         this.setState({inventories: subtractInventoryQuantity});
 
         const url = '/inventories/' + subtractInventoryQuantity[event.target.id].id + ".json";
-        const payload = {name: subtractInventoryQuantity[event.target.id].name, quantity: subtractInventoryQuantity[event.target.id].quantity, remarks: subtractInventoryQuantity[event.target.id].remarks, user_id: subtractInventoryQuantity[event.target.id].user_id }
+        const payload = {name: subtractInventoryQuantity[event.target.id].name, total_quantity: subtractInventoryQuantity[event.target.id].total_quantity, unsorted_quantity: subtractInventoryQuantity[event.target.id].unsorted_quantity, remarks: subtractInventoryQuantity[event.target.id].remarks, user_id: subtractInventoryQuantity[event.target.id].user_id }
         console.log (url);
         console.log(payload)
             axios
@@ -103,9 +106,14 @@ class All extends React.Component {
           }
           }
 
-          request_item(evenet){
+          request_item(event){
             console.log("request")
             alert( `${this.state.inventories[event.target.id].name} is requested`)
+            var currentRequestArray = this.state.stockToOrder;
+            currentRequestArray.push(this.state.inventories[event.target.id].name);
+            this.setState({stockToOrder: currentRequestArray});
+            this.props.productArray(currentRequestArray);
+
           }
 
 
@@ -121,7 +129,7 @@ class All extends React.Component {
             <p>{inventory.user.email}</p>
             <p>Invetory Name: {inventory.name}</p>
             <p><button onClick={()=>{ this.add_quantity(event) }} id = {button_plus_id}>+</button>
-            Quantity: {inventory.quantity}
+            Quantity: {inventory.total_quantity}
             <button onClick={()=>{ this.subtract_quantity(event) }} id = {button_plus_id}>-</button></p>
             <p>Remarks {inventory.remarks}</p>
             <br/>
