@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @inventory.name %>
+</p>
+
+<p>
+  <strong>Remarks:</strong>
+  <%= @inventory.remarks %>
+</p>
+
+<p>
+  <strong>Total quantity:</strong>
+  <%= @inventory.total_quantity %>
+</p>
+
+<p>
+  <strong>Unsorted quantity:</strong>
+  <%= @inventory.unsorted_quantity %>
+</p>
+
+<p>
+  <strong>Sorted quantity:</strong>
+  <%= @inventory.sorted_quantity %>
+</p>
+
+<p>
+  <strong>Image url:</strong>
+  <%= @inventory.image_url %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @inventory.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_inventory_path(@inventory) %> |
+<%= link_to 'Back', inventories_path %>
