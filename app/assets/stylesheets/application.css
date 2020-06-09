@@ -19,6 +19,7 @@
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     border-radius: 0px 0px 5px 5px;
+    max-width: 6000px;
     padding: 10px;
 }
 
@@ -50,13 +51,34 @@
     70% { transform: translate(-50%, -100%) rotate(-15deg); }
     100% { transform: translate(-50%, -50%) scale(1.25, 0.75); }
 }
+@keyframes fadeIn {
+		0% {
+				opacity: 0.25;
+		}
 
+		50% {
+				opacity: 1;
+		}
+
+		100% {
+				opacity: 0.25;
+		}
+
+
+}
  .logoSize{
  	width:10%;
  	position: relative;
  	float:right;
  	animation-name: jump;
 	animation-duration: 3s;
+	animation-iteration-count: infinite;
+ }
+
+ .companylogo{
+ 	width:100%;
+ 	 	animation-name: fadeIn;
+	animation-duration: 10s;
 	animation-iteration-count: infinite;
  }
 .row {
@@ -128,6 +150,8 @@
 .page-header {
     background-color: #054F7C;
     padding: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
     color: white;
     font-size: 30px;
     flex: 1 100%;

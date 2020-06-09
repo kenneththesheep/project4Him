@@ -9,11 +9,12 @@ class All extends React.Component {
 
   this.state = {
     inventories : [],
-    stockToOrder : []
+    stockToOrder : [],
+    addForm: false
   }
 }
     getPosts(){
-
+            this.setState({addForm:false})
               const url = '/inventories.json';
 
               axios.get(url)
@@ -27,7 +28,10 @@ class All extends React.Component {
                   console.log(error);
                 })
             }
+    addForm(){
 
+              this.setState({addForm:true})
+            }
     createPosts(){
 
               const url = '/inventories';
@@ -138,32 +142,57 @@ class All extends React.Component {
           </React.Fragment>
           );
 
+
+
         });
+
+                  let togglevView = ""
+          if(!this.state.addForm)
+          {
+            console.log("hello")
+            togglevView =(
+
+
+                    <div className ="col-8 text-center">
+                        <h1>  My current inventories  </h1>
+                        {inventories}
+                    </div>
+                    );
+
+          }
+          else
+          {
+            togglevView =(
+
+
+                        <div className ="col-8 text-center border">
+                            <h1>  Add to Arsenal </h1>
+                            <input/>
+                            <input/>
+
+                        </div>
+                        );
+
+
+          }
         // console.log(inventories)
         return (
           <div>
-          <div className = "row">
-            <div className = "col-4 text-center border">
-                <button onClick={()=>{ this.createPosts() }}>Create</button>
-            </div>
-          </div>
-          <div className = "row">
+
+          <div className = "row pt-5">
             <div className = "col-4 text-center">
             <div class Name = "row">
-            <div className = "col-12 mb-5">
+            <div className = "col-12 mb-5 ">
+            <button onClick={()=>{ this.addForm() }}>Add Form</button>
+            <br/><br/>
             <button onClick={()=>{ this.getPosts() }}>
                 Click to see all inventories
             </button>
             </div>
             </div>
 
-
-
-            {inventories}
             </div>
-            <div className ="col-4 text-center">
-                <h1>  Location 1  </h1>
-            </div>
+                {togglevView}
           </div>
           </div>
         );
