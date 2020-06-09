@@ -12,7 +12,16 @@ import Tab from "react-bootstrap/Tabs";
 import TabContainer from "react-bootstrap/TabContainer";
 import TabPane from "react-bootstrap/TabPane";
 import axios from 'axios';
+import $ from 'jquery';
+import Cookies from 'universal-cookie';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
+    const cookies = new Cookies();
 class App extends React.Component {
     constructor() {
         super();
@@ -22,27 +31,49 @@ class App extends React.Component {
             requestedStuff: [],
             unsortedStuff: []
         };
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
+
+
+
+
+handleLogout = () => {
+    console.log( "delete")
+    console.log(sessionStorage)
+  }
     repopulate(){
 
               const url = '/inventories.json';
 
               axios.get(url)
                 .then((response) => {
-
-                  const data = response.data.map((data,index)=>
+                    let data2="";
+                    let data3 =[];
+                    let data4="";
+                  const data = response.data
+                  console.log(data)
+                  data.forEach((element,index)=>
+                    {
+                        for(let count =0; count<element.total_quantity; count++)
+                        {
+                            data3.push(element);
+                        }
+                    }
+                    )
+                  console.log(data3)
+                  data4= data3.map((data,index)=>
                     {
                         return {
                             id:index+1,
                             icon: "⭕️",
                             status: "Unsorted",
                             title: "myLord",
-                            content: "Nothing"}
+                            content: data.name}
                     }
                     )
-
-                  this.setState({ unsortedStuff: data })
+                  console.log(data4)
+                  this.setState({ unsortedStuff: data4 })
 
                 }).catch((error)=>{
                   console.log(error);
@@ -75,7 +106,9 @@ class App extends React.Component {
         }
         return (
             <div>
-                <Tabs  defaultActiveKey="profile" id="uncontrolled-tab-example">
+
+
+                <Tabs  defaultActiveKey="home" id="uncontrolled-tab-example">
                     <Tab eventKey="home" title="Home">
                         <div className="row ">
                             <div className="col-12 mt-5 text-center">
@@ -132,9 +165,14 @@ class App extends React.Component {
                         </div>
                     </Tab>
                 </Tabs>
-            <button onClick={()=>{ this.repopulate() }}>
-                Repopulate
-            </button>
+                <div className="row">
+                <div className ="col-12 text-center mt-5">
+                    <button onClick={()=>{ this.repopulate() }}>
+                        Reproduce data first
+                    </button>
+                </div>
+                </div>
+
 
             </div>
         );

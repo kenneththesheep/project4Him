@@ -38,7 +38,7 @@ console.log(data2)
 //                 })
 //                 console.log(data);
 
-data = [{
+/*data = [{
     id: 1,
     icon: "⭕️",
     status: "Unsorted",
@@ -98,7 +98,7 @@ data = [{
     status: "Unsorted",
     title: "Item 10",
     content: "Sirfunc HD Case"
-}];
+}];*/
 //console.log(data2)
 console.log(data)
 
@@ -121,10 +121,12 @@ const statuses = [{
 }];
 
     const [items, setItems] = useState(data);
+    console.log("Entry to this point")
     const repopulate=()=>{
         console.log("repopulate")
         data = props.unsortedArray;
         console.log(data);
+        setItems(data);
 
     }
     //const [items, setItems] = useState(data);
@@ -149,6 +151,7 @@ const statuses = [{
     };
 
     return (
+        <div>
         <div className={"row"}>
 
             {statuses.map(s => {
@@ -167,8 +170,10 @@ const statuses = [{
                     </div>
                 );
             })}
-                       <button onClick={()=>{ repopulate() }}>
-                            Repopulate
+
+        </div>
+        <button onClick={()=>{ repopulate() }}>
+                            Populate the dashboard
                         </button>
         </div>
     );

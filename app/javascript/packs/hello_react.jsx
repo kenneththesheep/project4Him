@@ -6,10 +6,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import App from './app'
+
 const Hello = props => (
   <div className = "container">
-  <App />
 
+  <App />
+    <img className="logoSize" src="/logo.png"/>
   </div>
 )
 
