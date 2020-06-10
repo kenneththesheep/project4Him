@@ -35,7 +35,7 @@ skip_before_action :verify_authenticity_token
   # POST /inventories.json
   def create
     @inventory = Inventory.new(inventory_params)
-
+    @inventory.user = current_user
     respond_to do |format|
       if @inventory.save
         format.html { redirect_to @inventory, notice: 'Inventory was successfully created.' }

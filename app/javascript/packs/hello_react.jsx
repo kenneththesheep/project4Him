@@ -11,7 +11,7 @@ const Hello = props => (
   <div className = "container">
 
   <App />
-    <img className="logoSize" src="/logo.png"/>
+
   </div>
 )
 

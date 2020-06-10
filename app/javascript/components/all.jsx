@@ -10,9 +10,59 @@ class All extends React.Component {
   this.state = {
     inventories : [],
     stockToOrder : [],
-    addForm: false
+    addForm: false,
+    productName:"",
+    total_quantity:"",
+    remarks: ""
   }
 }
+
+    changeNameHandler(event) {
+        this.setState({ productName: event.target.value });
+        //console.log(this.props)
+
+        //console.log("change", event.target.value);
+    }
+    changeQuantityHandler(event) {
+        this.setState({ total_quantity: event.target.value });
+        //console.log(this.props)
+
+        //console.log("change", event.target.value);
+    }
+    changeRemarksHandler(event) {
+        this.setState({ remarks: event.target.value });
+        //console.log(this.props)
+
+        //console.log("change", event.target.value);
+    }
+    submitNew(){
+        console.log(`product Name is ${this.state.productName}`)
+        console.log(`Quantity is ${parseInt(this.state.total_quantity)}`)
+        console.log(`product Name is ${this.state.remarks}`)
+        const url = '/inventories';
+        axios.post(url,{
+                        name: this.state.productName,
+                        remarks: this.state.remarks,
+                        image_url: "blank",
+                        total_quantity: parseInt(this.state.total_quantity),
+                        unsorted_quantity: parseInt(this.state.total_quantity),
+                        sorted_quantity: 0
+
+
+                        })
+                    .then((response) => {
+
+                    console.log("plikca")
+                    console.log(response)
+
+                            this.setState({productName: "", total_quantity:"", remarks:""})
+
+                    }).catch((error)=>{
+                    console.log(error);
+                    console.log(error.response.data   )
+                    })
+
+    }
     getPosts(){
             this.setState({addForm:false})
               const url = '/inventories.json';
@@ -165,10 +215,30 @@ class All extends React.Component {
             togglevView =(
 
 
-                        <div className ="col-8 text-center border">
-                            <h1>  Add to Arsenal </h1>
-                            <input/>
-                            <input/>
+                        <div className ="col-7 text-center border ">
+                            <div className ="row mb-5">
+                                <h1>  Add to Arsenal </h1>
+                            </div>
+                            <div className ="row">
+                                <div className = "col -4">
+                                    <p> Name of Product: </p>
+                                    <p> Quantity: </p>
+                                    <p> Remarks: </p>
+                                </div>
+                                <div className = "col -8 text-left">
+                                    <p> <input value={this.state.productName} ref="inputBox" onChange={(event)=>{this.changeNameHandler(event);}}></input> </p>
+                                    <p> <input value={this.state.total_quantity} ref="inputBox" onChange={(event)=>{this.changeQuantityHandler(event);}}></input> </p>
+                                    <p> <input value={this.state.remarks} ref="inputBox" onChange={(event)=>{this.changeRemarksHandler(event);}}></input> </p>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <button onClick={()=>{ this.submitNew() }}>
+                                    Submit
+                                </button>
+
+                            </div>
+
+
 
                         </div>
                         );
