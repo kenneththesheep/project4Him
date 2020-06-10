@@ -32,6 +32,7 @@ users = [user1,user2,user3,user4]
 
 users.each do |user|
   10.times do |n|
-    user.inventory.create({name: FFaker::Product.product ,remarks: FFaker::Lorem.paragraph, total_quantity: 1, unsorted_quantity:1, sorted_quantity:0, image_url: FFaker::Internet.domain_name })
+    user.inventory.create({name: FFaker::Product.product ,remarks: FFaker::Lorem.paragraph, total_quantity: 0, unsorted_quantity:0, sorted_quantity:0, image_url: FFaker::Internet.domain_name
+     })
   end
 end

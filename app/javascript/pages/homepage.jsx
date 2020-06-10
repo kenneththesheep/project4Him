@@ -15,91 +15,7 @@ console.log(props.unsortedArray.length)
 let data ="";
 data=props.unsortedArray;
 console.log(data2)
-//data= data2;
-//              const url = '/inventories.json';
-//              axios.get(url)
-//                 .then((response) => {
 
-//                   data = response.data.map((data,index)=>
-//                     {
-//                         return {
-//                             id:index+1,
-//                             icon: "⭕️",
-//                             status: "Unsorted",
-//                             title: "myLord",
-//                             content: "Nothing"}
-//                     }
-//                     )
-//                   console.log(data);
-
-
-//                 }).catch((error)=>{
-//                   console.log(error);
-//                 })
-//                 console.log(data);
-
-/*data = [{
-    id: 1,
-    icon: "⭕️",
-    status: "Unsorted",
-    title: "Item 1",
-    content: "Phiont Electric Viewer"
-}, {
-    id: 2,
-    icon: "⭕️",
-    status: "Unsorted",
-    title: "Item 2",
-    content: "Lucell Direct Bracket"
-}, {
-    id: 3,
-    icon: "⭕️",
-    status: "Unsorted",
-    title: "Item 3",
-    content: "Phance Gel Audible Bridge"
-}, {
-    id: 4,
-    icon: "⭕️",
-    status: "Unsorted",
-    title: "Item 4",
-    content: "Cosche Air Electric Lifter"
-}, {
-    id: 5,
-    icon: "⭕️",
-    status: "Unsorted",
-    title: "Item 5",
-    content: "Reusync Output Adapter"
-}, {
-    id: 6,
-    icon: "⭕️",
-    status: "Unsorted",
-    title: "Item 6",
-    content: "Tripod Remote Direct Adapter"
-}, {
-    id: 7,
-    icon: "⭕️",
-    status: "Unsorted",
-    title: "Item 7",
-    content: "Bruckfunc Gel Lifter"
-}, {
-    id: 8,
-    icon: "⭕️",
-    status: "Unsorted",
-    title: "Item 8",
-    content: "Truns GPS Receiver"
-}, {
-    id: 9,
-    icon: "⭕️",
-    status: "Unsorted",
-    title: "Item 9",
-    content: "Onesche Gel Bracket"
-}, {
-    id: 10,
-    icon: "⭕️",
-    status: "Unsorted",
-    title: "Item 10",
-    content: "Sirfunc HD Case"
-}];*/
-//console.log(data2)
 console.log(data)
 
 const statuses = [{
@@ -122,16 +38,70 @@ const statuses = [{
 
     const [items, setItems] = useState(data);
     console.log("Entry to this point")
+
+        const removal=event=>{
+        console.log(event.target.id)
+        console.log(items[event.target.id-1]);
+        let salamender = items;
+        salamender.splice(event.target.id,1);
+        setItems(salamender);
+    }
+
     const repopulate=()=>{
         console.log("repopulate")
-        data = props.unsortedArray;
-        console.log(data);
-        setItems(data);
+        //data = props.unsortedArray;
+        //console.log(data);
+        //setItems(data);
+
+        const url = '/items.json';
+
+              axios.get(url)
+                .then((response) => {
+
+                    let data2="";
+                    let data3 =[];
+                    let data4="";
+                  const data = response.data
+                  console.log(data)
+
+                  console.log(data3)
+                  data4= data.map((data,index)=>
+                    {
+                        return {
+                            id:index+1,
+                            icon: "⭕️",
+                            status: data.status,
+                            title: "myLord",
+                            content: data.inventory.name,
+                            item_id: data.id,
+                            inventory_id: data.inventory_id
+                        }
+
+                    }
+                    )
+                  console.log(data4)
+                  setItems(data4)
+
+                  //setItems(data);
+
+                }).catch((error)=>{
+                  console.log(error);
+                })
 
     }
     //const [items, setItems] = useState(data);
     const onDrop = (item, monitor, status) => {
         const mapping = statuses.find(si => si.status === status);
+        console.log("Hakamatatata")
+        console.log(item)
+        console.log(status);
+        const url = '/items/' +item.item_id+".json";
+        const payload = {status: status}
+        axios.put(url,payload)
+        .then((response)=>{console.log(response.data)})
+        .catch((error)=>{
+                  console.log(error);
+                })
 
         setItems(prevState => {
             const newItems = prevState
@@ -143,6 +113,7 @@ const statuses = [{
 
     const moveItem = (dragIndex, hoverIndex) => {
         const item = items[dragIndex];
+
         setItems(prevState => {
             const newItems = prevState.filter((i, idx) => idx !== dragIndex);
             newItems.splice(hoverIndex, 0, item);
@@ -157,12 +128,15 @@ const statuses = [{
             {statuses.map(s => {
                 return (
                     <div key={status} className={"col-wrapper"}>
-                        <h2 className={"col-header"}>{s.status.toUpperCase()}</h2>
+                        <h2 className={"col-header"}>{s.status.toUpperCase()}: {s.icon}</h2>
                         <DropWrapper onDrop={onDrop} status={s.status}>
                             <Col>
                                 {items
                                     .filter(i => i.status === s.status)
-                                    .map((i, idx) => <Item key={i.id} item={i} index={idx} moveItem={moveItem} status={s} />)
+                                    .map((i, idx) => <div><Item key={i.id} item={i} index={idx} moveItem={moveItem} status={s} ></Item>
+
+                                    <button onClick={()=>{removal(event)}} id = {i.id}>X</button></div>
+                                        )
                                 }
                             </Col>
                         </DropWrapper>
@@ -174,7 +148,7 @@ const statuses = [{
         </div>
         <button onClick={()=>{ repopulate() }}>
                             Populate the dashboard
-                        </button>
+        </button>
         </div>
     );
 };

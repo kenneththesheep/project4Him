@@ -8,11 +8,13 @@ import PropTypes from 'prop-types'
 import App from './app'
 
 const Hello = props => (
+    <div className ="bodyApp">
   <div className = "container">
 
   <App />
 
   </div>
+    </div>
 )
 
 Hello.defaultProps = {

@@ -2,7 +2,7 @@ import React from 'react'
 
 import axios from 'axios';
 import { DragDropContext } from 'react-beautiful-dnd';
-
+import Carousel from 'react-bootstrap/Carousel'
 class All extends React.Component {
     constructor(){
   super()
@@ -44,9 +44,10 @@ class All extends React.Component {
                         name: this.state.productName,
                         remarks: this.state.remarks,
                         image_url: "blank",
-                        total_quantity: parseInt(this.state.total_quantity),
-                        unsorted_quantity: parseInt(this.state.total_quantity),
-                        sorted_quantity: 0
+                        total_quantity: 0,
+                        unsorted_quantity: 0,
+                        sorted_quantity: 0,
+                        inventory_id: ""
 
 
                         })
@@ -113,19 +114,35 @@ class All extends React.Component {
         this.setState({inventories: addInventoryQuantity});
 
         const url = '/inventories/' + addInventoryQuantity[event.target.id].id + ".json";
+
         const payload = {name: addInventoryQuantity[event.target.id].name, total_quantity: addInventoryQuantity[event.target.id].total_quantity, unsorted_quantity: addInventoryQuantity[event.target.id].unsorted_quantity, remarks: addInventoryQuantity[event.target.id].remarks, user_id: addInventoryQuantity[event.target.id].user_id }
+        const url2 = '/items';
+        const payload2 = {inventory_id:parseInt (addInventoryQuantity[event.target.id].id), status: "Unsorted"}
         console.log (url);
+
         console.log(payload)
+
+        const requestOne = axios.put(url,payload);
+        const requestTwo = axios.post(url2, payload2);
             axios
-              .put(url, payload)
-              .then(function (response) {
-                console.log(response)
-                console.log("Success")
-              })
+          .all([requestOne, requestTwo])
+            .then(
+            axios.spread((...responses) => {
+            const responseOne = responses[0];
+            const responeTwo = responses[1];
+
+
+      // use/access the results
+            console.log(responseOne, responeTwo);
+                })
+                )
               .catch(function (error) {
                 console.log(error)
                 console.log("whoopsy doopsy");
               });
+
+
+
           }
 
 
@@ -141,14 +158,26 @@ class All extends React.Component {
         this.setState({inventories: subtractInventoryQuantity});
 
         const url = '/inventories/' + subtractInventoryQuantity[event.target.id].id + ".json";
+        console.log(url);
         const payload = {name: subtractInventoryQuantity[event.target.id].name, total_quantity: subtractInventoryQuantity[event.target.id].total_quantity, unsorted_quantity: subtractInventoryQuantity[event.target.id].unsorted_quantity, remarks: subtractInventoryQuantity[event.target.id].remarks, user_id: subtractInventoryQuantity[event.target.id].user_id }
+
+        const url2 = '/items/2';
+        const payload2 = {inventory_id:parseInt (event.target.id), status: "Unsorted"}
+
         console.log (url);
-        console.log(payload)
+       const requestOne = axios.put(url,payload);
+
             axios
-              .put(url, payload)
-              .then(function (response) {
-                console.log(response)
-              })
+          .all([requestOne])
+            .then(
+            axios.spread((...responses) => {
+            const responseOne = responses[0];
+
+
+      // use/access the results
+            console.log(responseOne);
+                })
+                )
               .catch(function (error) {
                 console.log(error)
                 console.log("whoopsy doopsy");
@@ -178,18 +207,21 @@ class All extends React.Component {
           //console.log(inventory)
           let button_plus_id = `${index}`
           return  (
-            <React.Fragment key={index}>
-            <div className = "card cardInventory" >
-            <p>{inventory.user.email}</p>
-            <p>Invetory Name: {inventory.name}</p>
-            <p><button onClick={()=>{ this.add_quantity(event) }} id = {button_plus_id}>+</button>
-            Quantity: {inventory.total_quantity}
-            <button onClick={()=>{ this.subtract_quantity(event) }} id = {button_plus_id}>-</button></p>
-            <p>Remarks {inventory.remarks}</p>
-            <br/>
-            <button onClick={()=>{this.request_item(event)}} id = {button_plus_id}>Request</button>
-          </div>
-          </React.Fragment>
+            <Carousel.Item>
+            <div class="row">
+                <div class = "col-8 border carouselBox">
+                    <img className="carouselImage"  src="/egg-thumb.jpg"/>
+                    <p>Invetory Name: {inventory.name}</p>
+                    <p>
+                    Quantity: {inventory.total_quantity}
+                    <button onClick={()=>{ this.add_quantity(event) }} id = {button_plus_id}>+</button></p>
+                    <p>Remarks {inventory.remarks}</p>
+                    <br/>
+                    <button onClick={()=>{this.request_item(event)}} id = {button_plus_id}>Request</button>
+                </div>
+            </div>
+
+          </Carousel.Item>
           );
 
 
@@ -203,9 +235,11 @@ class All extends React.Component {
             togglevView =(
 
 
-                    <div className ="col-8 text-center">
+                    <div className ="col-8 pl-2 pr-2 text-center">
                         <h1>  My current inventories  </h1>
-                        {inventories}
+                         <Carousel>
+                            {inventories}
+                        </Carousel>
                     </div>
                     );
 
@@ -222,12 +256,12 @@ class All extends React.Component {
                             <div className ="row">
                                 <div className = "col -4">
                                     <p> Name of Product: </p>
-                                    <p> Quantity: </p>
+
                                     <p> Remarks: </p>
                                 </div>
                                 <div className = "col -8 text-left">
                                     <p> <input value={this.state.productName} ref="inputBox" onChange={(event)=>{this.changeNameHandler(event);}}></input> </p>
-                                    <p> <input value={this.state.total_quantity} ref="inputBox" onChange={(event)=>{this.changeQuantityHandler(event);}}></input> </p>
+
                                     <p> <input value={this.state.remarks} ref="inputBox" onChange={(event)=>{this.changeRemarksHandler(event);}}></input> </p>
                                 </div>
                             </div>

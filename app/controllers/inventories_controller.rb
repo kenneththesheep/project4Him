@@ -65,6 +65,7 @@ skip_before_action :verify_authenticity_token
   # DELETE /inventories/1.json
   def destroy
     @inventory.destroy
+    puts params
     respond_to do |format|
       format.html { redirect_to inventories_url, notice: 'Inventory was successfully destroyed.' }
       format.json { head :no_content }

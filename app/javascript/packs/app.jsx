@@ -171,13 +171,7 @@ handleLogout = () => {
                         </div>
                     </Tab>
                 </Tabs>
-                <div className="row">
-                <div className ="col-12 text-center mt-5">
-                    <button onClick={()=>{ this.repopulate() }}>
-                        Reproduce data first
-                    </button>
-                </div>
-                </div>
+
 
 
             </div>
