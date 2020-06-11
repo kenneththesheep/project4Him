@@ -50,11 +50,14 @@ skip_before_action :verify_authenticity_token
   # PATCH/PUT /inventories/1
   # PATCH/PUT /inventories/1.json
   def update
+    puts "I am updating yoyoyoyoyoyoyoyoyoyoyoyoyoyo"
     respond_to do |format|
       if @inventory.update(inventory_params)
+        puts "Happy Happy HGappy Happy"
         format.html { redirect_to @inventory, notice: 'Inventory was successfully updated.' }
         format.json { render :show, status: :ok, location: @inventory }
       else
+        puts "Failre in update civilisation"
         format.html { render :edit }
         format.json { render json: @inventory.errors, status: :unprocessable_entity }
       end

@@ -17,6 +17,7 @@ import TabPane from "react-bootstrap/TabPane";
 import axios from 'axios';
 import $ from 'jquery';
 import Cookies from 'universal-cookie';
+import Collapse from 'react-bootstrap/Collapse'
 import {
   BrowserRouter as Router,
   Switch,
@@ -32,13 +33,16 @@ class App extends React.Component {
         this.state = {
             posts: [],
             requestedStuff: [],
-            unsortedStuff: []
+            unsortedStuff: [],
+            initialPage: true
         };
         this.handleLogout = this.handleLogout.bind(this);
     }
 
 
-
+toggleAway =()=>{
+    this.setState({initialPage: false})
+}
 
 
 handleLogout = () => {
@@ -107,27 +111,41 @@ handleLogout = () => {
             this.setState({ requestedStuff: updateRequestItem });
 
         }
-        return (
-            <div>
+        let test =""
+        if(this.state.initialPage)
+        {
+            test=(
+            <div class="row">
+                <div class ="col-12 text-center pt-5 pb-5">
+                    <img className="frontcompanylogo" src="/companylogo.png" onClick={()=>{ this.toggleAway() }}/>
+                </div>
+            </div>
+                )
+        }
+        else(
+            test =(
+                <div className="fadeintrick">
+            <img className="companylogo2" src="/companylogo.png"/>
 
-
-                <Tabs  defaultActiveKey="home" id="uncontrolled-tab-example">
+                <Tabs  defaultActiveKey="home" id="uncontrolled-tab-example" >
                     <Tab eventKey="home" title="Home">
                         <Header4 />
                         <div className = "row">
                             <div className ="col-8">
+
+
                                 <h2>Mako House Inventory Management System </h2>
                                 <p>The future solution for the modern home. Do not fret as our system will help you manage what you deem as a "Sephiroth-level" disaster.</p>
                                 <h2>Some other crap</h2>
                                 <p>The standard Lorem Ipsum passage, used since the 1500s
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
- <h2>Some other crap</h2>
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                                <h2>Some other crap</h2>
                                 <p>The standard Lorem Ipsum passage, used since the 1500s
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
 
                             </div>
                             <div className ="col-4">
-                                <img className="companylogo" src="/companylogo.png"/>
+
                             </div>
                         </div>
 
@@ -151,7 +169,7 @@ handleLogout = () => {
                     <Tab eventKey="movement" title="Movement">
                                     <DndProvider backend = { HTML5Backend }>
 
-                                    <Header />
+                                    <Header />;
                                     <Homepage
                                     unsortedArray = {this.state.unsortedStuff}
                                     />
@@ -174,6 +192,13 @@ handleLogout = () => {
 
 
 
+            </div>
+                )
+            )
+
+        return (
+            <div>
+            {test}
             </div>
         );
     }

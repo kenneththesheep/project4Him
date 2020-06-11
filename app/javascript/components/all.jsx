@@ -3,6 +3,10 @@ import React from 'react'
 import axios from 'axios';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Carousel from 'react-bootstrap/Carousel'
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tabs";
+import TabContainer from "react-bootstrap/TabContainer";
+import TabPane from "react-bootstrap/TabPane";
 class All extends React.Component {
     constructor(){
   super()
@@ -215,7 +219,7 @@ class All extends React.Component {
                     <p>
                     Quantity: {inventory.total_quantity}
                     <button onClick={()=>{ this.add_quantity(event) }} id = {button_plus_id}>+</button></p>
-                    <p>Remarks {inventory.remarks}</p>
+
                     <br/>
                     <button onClick={()=>{this.request_item(event)}} id = {button_plus_id}>Request</button>
                 </div>
@@ -236,7 +240,7 @@ class All extends React.Component {
 
 
                     <div className ="col-8 pl-2 pr-2 text-center">
-                        <h1>  My current inventories  </h1>
+
                          <Carousel>
                             {inventories}
                         </Carousel>
@@ -249,8 +253,8 @@ class All extends React.Component {
             togglevView =(
 
 
-                        <div className ="col-7 text-center border ">
-                            <div className ="row mb-5">
+                        <div className ="col-7 text-center ">
+                            <div className ="row mb-5 pt-2">
                                 <h1>  Add to Arsenal </h1>
                             </div>
                             <div className ="row">
@@ -264,13 +268,13 @@ class All extends React.Component {
 
                                     <p> <input value={this.state.remarks} ref="inputBox" onChange={(event)=>{this.changeRemarksHandler(event);}}></input> </p>
                                 </div>
-                            </div>
-                            <div className="row">
-                                <button onClick={()=>{ this.submitNew() }}>
+                                <div className ="col-12">
+                                    <button onClick={()=>{ this.submitNew() }}>
                                     Submit
                                 </button>
-
+                                </div>
                             </div>
+
 
 
 
@@ -283,21 +287,32 @@ class All extends React.Component {
         return (
           <div>
 
-          <div className = "row pt-5">
-            <div className = "col-4 text-center">
-            <div class Name = "row">
-            <div className = "col-12 mb-5 ">
-            <button onClick={()=>{ this.addForm() }}>Add Form</button>
-            <br/><br/>
-            <button onClick={()=>{ this.getPosts() }}>
-                Click to see all inventories
-            </button>
+
+
+
+            <div className ="row justify-content-start ">
+                <div className = "col-2">
+                </div>
+                <div className = "col-3 border-top border-left border-right border-dark rounded-top ">
+                    <h2  onClick={()=>{ this.addForm() }}>Add Form</h2>
+                </div>
+                <div className = "col-3 border-top border-left border-right border-dark rounded-top ">
+                    <h2  onClick={()=>{ this.getPosts() }}>View</h2>
+                </div>
+                <div className = "col-3 border-bottom border-dark  ">
+
+                </div>
             </div>
-            </div>
+            <div className ="row justify-content-start">
+            <div className = "col-2">
+                </div>
+                <div className = "col-9 border-bottom border-left border-right text-left border-dark">
+                    {togglevView}
+                </div>
 
             </div>
-                {togglevView}
-          </div>
+
+
           </div>
         );
     }

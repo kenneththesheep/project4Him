@@ -69,15 +69,13 @@
     background-color: #CCCCCC;
 }
 
-.nav-tabs {
-    margin-bottom: 0;
-    background-color:black;
-    color:white;
+.innerfolder{
+margin-left: 300px
 }
-.nav-tabs a {
+.nav-tabs a{
+  	color:black;
+}
 
-    color:white;
-}
 .nav-tabs.active{
 	background-color:red;
 }
@@ -131,6 +129,22 @@
 
 
 }
+
+@keyframes fadeInOnce {
+		0% {
+				opacity: 0;
+		}
+
+		50% {
+				opacity: 0.5;
+		}
+
+		100% {
+				opacity: 1;
+		}
+
+
+}
  .logoSize{
  	width:10%;
  	position: relative;
@@ -139,12 +153,30 @@
 	animation-duration: 3s;
 	animation-iteration-count: infinite;
  }
+.frontcompanylogo{
+	width:60%;
+	 	animation-name: fadeInOnce;
+	animation-duration: 20s;
+	animation-iteration-count: infinite;
+}
+.fadeintrick{
+		 	animation-name: fadeInOnce;
+	animation-duration: 10s;
+	animation-iteration-count: 1;
+}
 
  .companylogo{
  	width:100%;
  	 	animation-name: fadeIn;
 	animation-duration: 10s;
 	animation-iteration-count: infinite;
+ }
+  .companylogo2{
+ 	width:15%;
+ 	right: 5px;
+ 	top: -16px;
+ 	position: absolute;
+ 	z-index: 1000;
  }
 .row {
     display: flex;
@@ -196,7 +228,7 @@
     border-radius: 5px;
     		height: 400px;
     		width:20%;
-		overflow: scroll;
+		overflow-y: scroll;
 }
 
 .col-header {
