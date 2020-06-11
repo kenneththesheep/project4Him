@@ -28,7 +28,8 @@ class All extends React.Component {
     selectedFile: null,
     image: null,
       url: '',
-      progress: 0
+      progress: 0,
+      searchResult:0
   }
 
       this.handleChange = this
@@ -37,6 +38,34 @@ class All extends React.Component {
       this.handleUpload = this.handleUpload.bind(this);
 }
 
+  changeSearchHandler(event) {
+        this.setState({ searchResult: event.target.value });
+        console.log(this.state.searchResult)
+        //console.log(this.props)
+
+        //this.props.callBackFromForm(event);
+
+        //console.log("change", event.target.value);
+    }
+
+    getSearchPosts=()=> {
+
+        this.setState({addForm:false})
+
+        const url = '/inventories.json';
+
+
+        axios.get(url, { params: { foo: "searchName", productName: this.state.searchResult } })
+            .then((response) => {
+                console.log("something")
+                const data = response.data
+                 this.setState({ inventories: data })
+                this.setState({ searchResult: "" })
+
+            }).catch((error) => {
+                console.log(error);
+            })
+                    }
   handleChange = e => {
     if (e.target.files[0]) {
       const image = e.target.files[0];
@@ -185,6 +214,84 @@ uploadHandler=()=> {
                   console.log(error);
                 })
             }
+    getPostsAToZ(){
+                    this.setState({addForm:false})
+              const url = '/inventories.json';
+
+              axios.get(url, { params: { type: "name", order: "asc" } })
+                .then((response) => {
+
+                  const data = response.data
+
+                  this.setState({ inventories: data })
+
+                }).catch((error)=>{
+                  console.log(error);
+                })
+    }
+
+        getPostsZToA(){
+                    this.setState({addForm:false})
+              const url = '/inventories.json';
+
+              axios.get(url, { params: { type: "name", order: "des" } })
+                .then((response) => {
+
+                  const data = response.data
+
+                  this.setState({ inventories: data })
+
+                }).catch((error)=>{
+                  console.log(error);
+                })
+    }
+
+    getPostsQauantityAsc(){
+                            this.setState({addForm:false})
+              const url = '/inventories.json';
+
+              axios.get(url, { params: { type: "quantity", order: "asc" } })
+                .then((response) => {
+
+                  const data = response.data
+
+                  this.setState({ inventories: data })
+
+                }).catch((error)=>{
+                  console.log(error);
+                })
+    }
+
+    getPostsQuantityDes(){
+                                    this.setState({addForm:false})
+              const url = '/inventories.json';
+
+              axios.get(url, { params: { type: "quantity", order: "des" } })
+                .then((response) => {
+
+                  const data = response.data
+
+                  this.setState({ inventories: data })
+
+                }).catch((error)=>{
+                  console.log(error);
+                })
+    }
+    zeroStock(){
+            this.setState({addForm:false})
+              const url = '/inventories.json';
+
+              axios.get(url, { params: { type: "zero" } })
+                .then((response) => {
+
+                  const data = response.data
+
+                  this.setState({ inventories: data })
+
+                }).catch((error)=>{
+                  console.log(error);
+                })
+    }
     addForm(){
 
               this.setState({addForm:true})
@@ -351,8 +458,10 @@ uploadHandler=()=> {
 
                           <Dropdown.Menu>
                             <Dropdown.Item onSelect={()=>{ this.getPosts() }} >View All</Dropdown.Item>
-                            <Dropdown.Item >Alphabetical</Dropdown.Item>
-                            <Dropdown.Item >Reverse Alphabetical</Dropdown.Item>
+                            <Dropdown.Item onSelect ={()=>{ this.getPostsAToZ() }}>Name(A-Z)</Dropdown.Item>
+                            <Dropdown.Item onSelect ={()=>{ this.getPostsZToA() }}>Name(Z-A)</Dropdown.Item>
+                            <Dropdown.Item onSelect ={()=>{ this.getPostsQauantityAsc() }}>Quantity(Ascending)</Dropdown.Item>
+                            <Dropdown.Item onSelect ={()=>{ this.getPostsQuantityDes() }}>Quantity(Descending)</Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>
                         </div>
@@ -363,14 +472,16 @@ uploadHandler=()=> {
                           <Dropdown.Toggle split variant="dark" id="dropdown-split-basic" />
 
                           <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                            <Dropdown.Item onSelect ={()=>{ this.zeroStock() }}>All depleted stock</Dropdown.Item>
+                            <Dropdown.Item >Drink</Dropdown.Item>
+                            <Dropdown.Item >Cleansing Product</Dropdown.Item>
+                            <Dropdown.Item >Food</Dropdown.Item>
+                            <Dropdown.Item >Cleansing Product</Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>
                         </div>
                         <div className ="col-6 text-center">
-                        <input/><button>🔍</button>
+                        <input value={this.state.productSearch} ref="inputBox" onChange={(event)=>{this.changeSearchHandler(event);}}/><button onClick={this.getSearchPosts}>🔍</button>
 
                         </div>
                     </div>

@@ -5,7 +5,35 @@ skip_before_action :verify_authenticity_token
   # GET /inventories
   # GET /inventories.json
   def index
+
+    if params[:type] == "name"
+      if params[:order] =="des"
+        @inventories = Inventory.where(user_id: current_user.id).order(name: :desc)
+
+      else
+          @inventories = Inventory.where(user_id: current_user.id).order(:name)
+
+    end
+  elsif params[:type] == "quantity"
+      if params[:order] =="des"
+        @inventories = Inventory.where(user_id: current_user.id).order(total_quantity: :desc)
+
+      else
+          @inventories = Inventory.where(user_id: current_user.id).order(:total_quantity)
+
+    end
+
+    elsif params[:type] == "zero"
+
+          @inventories = Inventory.where(user_id: current_user.id).where( total_quantity: 0)
+
+      elsif params[:foo] == "searchName"
+
+      @inventories = Inventory.where("name like ?", "%#{params[:productName]}%")
+
+    else
         @inventories = Inventory.where(user_id: current_user.id)
+    end
     puts current_user.email
         respond_to do |format|
       format.json {
