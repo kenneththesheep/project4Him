@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import axios from 'axios';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -7,9 +7,16 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tabs";
 import TabContainer from "react-bootstrap/TabContainer";
 import TabPane from "react-bootstrap/TabPane";
+import {storage} from '../firebase';
+import SplitButton from 'react-bootstrap/SplitButton'
+import DropdownButton from 'react-bootstrap/DropdownButton'
+import Dropdown from 'react-bootstrap/Dropdown'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Button from 'react-bootstrap/Button'
+import InputGroup from 'react-bootstrap/InputGroup'
 class All extends React.Component {
     constructor(){
-  super()
+  super();
 
   this.state = {
     inventories : [],
@@ -17,10 +24,105 @@ class All extends React.Component {
     addForm: false,
     productName:"",
     total_quantity:"",
-    remarks: ""
+    remarks: "",
+    selectedFile: null,
+    image: null,
+      url: '',
+      progress: 0
   }
+
+      this.handleChange = this
+      .handleChange
+      .bind(this);
+      this.handleUpload = this.handleUpload.bind(this);
 }
 
+  handleChange = e => {
+    if (e.target.files[0]) {
+      const image = e.target.files[0];
+      this.setState(() => ({image}));
+    }
+  }
+
+  handleUpload = () => {
+      const {image} = this.state;
+      const uploadTask = storage.ref(`images/${image.name}`).put(image);
+      uploadTask.on('state_changed',
+      (snapshot) => {
+        // progrss function ....
+        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        this.setState({progress});
+      },
+      (error) => {
+           // error function ....
+        console.log(error);
+      },
+    () => {
+        // complete function ....
+        storage.ref('images').child(image.name).getDownloadURL().then(url => {
+            console.log(url);
+            this.setState({url});
+        })
+    });
+  }
+/*fileChangedHandler=(event)=> {
+    console.log(this)
+  this.setState({ selectedFile: event.target.files })
+}
+
+uploadHandler=()=> {
+    let bucketName = 'images';
+    let file = this.state.selectedFile[0];
+    let storageRef = firebase.storage().ref(`${bucketName}/${file.name}`)
+    let uploadTask = storageRef.put(file);
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+        ()=>{
+            console.log(uploadTask.storage)
+            console.log(uploadTask.snapshot)
+            console.log*uploadTask
+
+        }
+
+        )
+                firebase.storage
+      .ref("images")
+      .child(file.name)
+      .getDownloadURL()
+      .then(url => console.log(url));
+
+    console.log(this.state.selectedFile)
+    const uploadTask = storage.ref(`/${this.state.selectedFile.name}`).put(this.state.selectedFile);
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        console.log(uploadTask)
+        this.setState({progress:progress});
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        console.log("entered herherhehrehrhe")
+        this.setState({image: `gs://sleepybird-3254a.appspot.com/goblin.jpg`})
+        console.log(storage)
+            storage.ref("images").getDownloadURL().then(function(url){
+                console.log(url)
+            })
+        storage
+          .ref("images")
+          .child(this.state.selectedFile.name)
+          .getDownloadURL()
+          .then(url => {
+            console.log("jhfldhflhslkfhasdklfhdsklhflkash")
+            console.log(url)
+            this.setState({url});
+          });
+      }
+    );
+}*/
     changeNameHandler(event) {
         this.setState({ productName: event.target.value });
         //console.log(this.props)
@@ -47,7 +149,7 @@ class All extends React.Component {
         axios.post(url,{
                         name: this.state.productName,
                         remarks: this.state.remarks,
-                        image_url: "blank",
+                        image_url: this.state.url,
                         total_quantity: 0,
                         unsorted_quantity: 0,
                         sorted_quantity: 0,
@@ -211,21 +313,22 @@ class All extends React.Component {
           //console.log(inventory)
           let button_plus_id = `${index}`
           return  (
-            <Carousel.Item>
-            <div class="row">
-                <div class = "col-8 border carouselBox">
-                    <img className="carouselImage"  src="/egg-thumb.jpg"/>
+
+                <div class = "col-4">
+                    <img className="carouselImage"  src={inventory.image_url|| 'http://via.placeholder.com/400x300'} />
                     <p>Invetory Name: {inventory.name}</p>
                     <p>
                     Quantity: {inventory.total_quantity}
                     <button onClick={()=>{ this.add_quantity(event) }} id = {button_plus_id}>+</button></p>
 
+
                     <br/>
+
+
+
                     <button onClick={()=>{this.request_item(event)}} id = {button_plus_id}>Request</button>
                 </div>
-            </div>
 
-          </Carousel.Item>
           );
 
 
@@ -238,13 +341,48 @@ class All extends React.Component {
             console.log("hello")
             togglevView =(
 
+                <div>
+                    <div className ="row pt-4">
+                        <div className ="col-3 text-center">
+                        <Dropdown as={ButtonGroup}>
+                          <Button variant="dark">Sort By</Button>
 
-                    <div className ="col-8 pl-2 pr-2 text-center">
+                          <Dropdown.Toggle split variant="dark" id="dropdown-split-basic" />
 
-                         <Carousel>
-                            {inventories}
-                        </Carousel>
+                          <Dropdown.Menu>
+                            <Dropdown.Item onSelect={()=>{ this.getPosts() }} >View All</Dropdown.Item>
+                            <Dropdown.Item >Alphabetical</Dropdown.Item>
+                            <Dropdown.Item >Reverse Alphabetical</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                        </div>
+                    <div className ="col-3 text-center">
+                        <Dropdown as={ButtonGroup}>
+                          <Button variant="dark">Filter</Button>
+
+                          <Dropdown.Toggle split variant="dark" id="dropdown-split-basic" />
+
+                          <Dropdown.Menu>
+                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                        </div>
+                        <div className ="col-6 text-center">
+                        <input/><button>🔍</button>
+
+                        </div>
                     </div>
+                    <div className ="row control">
+
+
+
+                                {inventories}
+
+
+                    </div>
+                </div>
                     );
 
           }
@@ -254,25 +392,30 @@ class All extends React.Component {
 
 
                         <div className ="col-7 text-center ">
-                            <div className ="row mb-5 pt-2">
-                                <h1>  Add to Arsenal </h1>
-                            </div>
+
                             <div className ="row">
-                                <div className = "col -4">
-                                    <p> Name of Product: </p>
 
-                                    <p> Remarks: </p>
-                                </div>
-                                <div className = "col -8 text-left">
-                                    <p> <input value={this.state.productName} ref="inputBox" onChange={(event)=>{this.changeNameHandler(event);}}></input> </p>
+                                <div className = "col -12 text-left">
 
-                                    <p> <input value={this.state.remarks} ref="inputBox" onChange={(event)=>{this.changeRemarksHandler(event);}}></input> </p>
-                                </div>
-                                <div className ="col-12">
-                                    <button onClick={()=>{ this.submitNew() }}>
+                                    <input className="inputwidht" placeholder="Enter your Product" value={this.state.productName} ref="inputBox" onChange={(event)=>{this.changeNameHandler(event);}}></input>
+                                    <br/><br/>
+                                    <input className="inputwidht" placeholder="Enter remarks" value={this.state.remarks} ref="inputBox" onChange={(event)=>{this.changeRemarksHandler(event);}}></input>
+                                    <br/><br/>
+
+
+      <br/>
+        <input type="file" onChange={this.handleChange}/>
+        <button onClick={this.handleUpload}>Upload</button>
+        <br/>
+        <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="120" width="160"/>
+
+
+
+                                    <button className ="buttonposition" onClick={()=>{ this.submitNew() }}>
                                     Submit
                                 </button>
                                 </div>
+
                             </div>
 
 

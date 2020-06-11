@@ -69,13 +69,24 @@
     background-color: #CCCCCC;
 }
 
+.buttonposition{
+	position: absolute;
+	right:-300px;
+}
+
+.inputwidht{
+	width:150%;
+}
+
 .innerfolder{
 margin-left: 300px
 }
-.nav-tabs a{
+.nav-tabs.active a{
   	color:black;
 }
-
+.nav-tabs a{
+  	color:white;
+}
 .nav-tabs.active{
 	background-color:red;
 }
@@ -217,6 +228,13 @@ margin-left: 300px
     width: 100%;
     height: 100%;
 }
+
+.control{
+	 		height: 300px;
+    		width: 100%;
+		overflow-y: scroll;
+}
+
 
 .col-wrapper {
     display: flex;
