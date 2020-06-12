@@ -27,6 +27,22 @@ skip_before_action :verify_authenticity_token
 
           @inventories = Inventory.where(user_id: current_user.id).where( total_quantity: 0)
 
+        elsif params[:type] == "others"
+
+          @inventories = Inventory.where(user_id: current_user.id).where( category: "others")
+
+        elsif params[:type] == "drinks"
+
+          @inventories = Inventory.where(user_id: current_user.id).where( category: "drinks")
+
+        elsif params[:type] == "food"
+
+          @inventories = Inventory.where(user_id: current_user.id).where( category: "food")
+
+        elsif params[:type] == "clean"
+
+          @inventories = Inventory.where(user_id: current_user.id).where( category: "clean")
+
       elsif params[:foo] == "searchName"
 
       @inventories = Inventory.where("name like ?", "%#{params[:productName]}%")
@@ -111,6 +127,6 @@ skip_before_action :verify_authenticity_token
 
     # Only allow a list of trusted parameters through.
     def inventory_params
-      params.require(:inventory).permit(:name, :remarks, :total_quantity, :unsorted_quantity, :sorted_quantity, :image_url, :user_id)
+      params.require(:inventory).permit(:name, :remarks, :total_quantity, :unsorted_quantity, :sorted_quantity, :image_url, :user_id, :category)
     end
 end

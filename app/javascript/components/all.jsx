@@ -14,6 +14,8 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
+import ToggleButton from 'react-bootstrap/ToggleButton'
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
 class All extends React.Component {
     constructor(){
   super();
@@ -29,7 +31,8 @@ class All extends React.Component {
     image: null,
       url: '',
       progress: 0,
-      searchResult:0
+      searchResult:0,
+      category:""
   }
 
       this.handleChange = this
@@ -174,6 +177,7 @@ uploadHandler=()=> {
         console.log(`product Name is ${this.state.productName}`)
         console.log(`Quantity is ${parseInt(this.state.total_quantity)}`)
         console.log(`product Name is ${this.state.remarks}`)
+        console.log(`category is ${this.state.category}`)
         const url = '/inventories';
         axios.post(url,{
                         name: this.state.productName,
@@ -182,7 +186,8 @@ uploadHandler=()=> {
                         total_quantity: 0,
                         unsorted_quantity: 0,
                         sorted_quantity: 0,
-                        inventory_id: ""
+                        inventory_id: "",
+                        category: this.state.category
 
 
                         })
@@ -191,7 +196,7 @@ uploadHandler=()=> {
                     console.log("plikca")
                     console.log(response)
 
-                            this.setState({productName: "", total_quantity:"", remarks:""})
+                            this.setState({productName: "", total_quantity:"", remarks:"", category:""})
 
                     }).catch((error)=>{
                     console.log(error);
@@ -291,6 +296,72 @@ uploadHandler=()=> {
                 }).catch((error)=>{
                   console.log(error);
                 })
+    }
+    otherStock(){
+                    this.setState({addForm:false})
+              const url = '/inventories.json';
+
+              axios.get(url, { params: { type: "others" } })
+                .then((response) => {
+
+                  const data = response.data
+
+                  this.setState({ inventories: data })
+
+                }).catch((error)=>{
+                  console.log(error);
+                })
+    }
+    drinkStock(){
+                    this.setState({addForm:false})
+              const url = '/inventories.json';
+
+              axios.get(url, { params: { type: "drinks" } })
+                .then((response) => {
+
+                  const data = response.data
+
+                  this.setState({ inventories: data })
+
+                }).catch((error)=>{
+                  console.log(error);
+                })
+    }
+    foodStock(){
+                    this.setState({addForm:false})
+              const url = '/inventories.json';
+
+              axios.get(url, { params: { type: "food" } })
+                .then((response) => {
+
+                  const data = response.data
+
+                  this.setState({ inventories: data })
+
+                }).catch((error)=>{
+                  console.log(error);
+                })
+    }
+        cleanStock(){
+                    this.setState({addForm:false})
+              const url = '/inventories.json';
+
+              axios.get(url, { params: { type: "clean" } })
+                .then((response) => {
+
+                  const data = response.data
+
+                  this.setState({ inventories: data })
+
+                }).catch((error)=>{
+                  console.log(error);
+                })
+    }
+    handleRadioClick=(event)=>{
+        console.log("test")
+        console.log(event.target.value)
+        console.log(this.state.addForm)
+        this.setState({category: event.target.value})
     }
     addForm(){
 
@@ -421,12 +492,24 @@ uploadHandler=()=> {
           let button_plus_id = `${index}`
           return  (
 
-                <div class = "col-4">
-                    <img className="carouselImage"  src={inventory.image_url|| 'http://via.placeholder.com/400x300'} />
+                <div className = "col-4 mb-3">
+                    <div className = "row">
+                        <div className =" col-12">
+                            <img className="carouselImage"  src={inventory.image_url|| 'http://via.placeholder.com/400x300'} height="120" width="160"/>
+                        </div>
+                    </div>
+                    <div className = "h-25 row">
+                        <div  className ="col-12 pt-1">
                     <p>Invetory Name: {inventory.name}</p>
+                        </div>
+                    </div>
+                    <div className = "row">
+                        <div className ="col-12">
                     <p>
                     Quantity: {inventory.total_quantity}
                     <button onClick={()=>{ this.add_quantity(event) }} id = {button_plus_id}>+</button></p>
+                    </div>
+                    </div>
 
 
                     <br/>
@@ -472,11 +555,11 @@ uploadHandler=()=> {
                           <Dropdown.Toggle split variant="dark" id="dropdown-split-basic" />
 
                           <Dropdown.Menu>
-                            <Dropdown.Item onSelect ={()=>{ this.zeroStock() }}>All depleted stock</Dropdown.Item>
-                            <Dropdown.Item >Drink</Dropdown.Item>
-                            <Dropdown.Item >Cleansing Product</Dropdown.Item>
-                            <Dropdown.Item >Food</Dropdown.Item>
-                            <Dropdown.Item >Cleansing Product</Dropdown.Item>
+                            <Dropdown.Item onSelect ={()=>{ this.zeroStock() }}>Out Of Stock</Dropdown.Item>
+                            <Dropdown.Item onSelect ={()=>{ this.drinkStock() }} >Category: Drink</Dropdown.Item>
+                            <Dropdown.Item onSelect ={()=>{ this.cleanStock() }}>Category: Cleaning Product</Dropdown.Item>
+                            <Dropdown.Item  onSelect ={()=>{ this.foodStock() }}>Category: Food</Dropdown.Item>
+                            <Dropdown.Item onSelect ={()=>{ this.otherStock() }}>Category: Others</Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>
                         </div>
@@ -504,21 +587,29 @@ uploadHandler=()=> {
 
                         <div className ="col-7 text-center ">
 
-                            <div className ="row">
+                            <div className ="row mt-5">
 
                                 <div className = "col -12 text-left">
 
                                     <input className="inputwidht" placeholder="Enter your Product" value={this.state.productName} ref="inputBox" onChange={(event)=>{this.changeNameHandler(event);}}></input>
                                     <br/><br/>
                                     <input className="inputwidht" placeholder="Enter remarks" value={this.state.remarks} ref="inputBox" onChange={(event)=>{this.changeRemarksHandler(event);}}></input>
-                                    <br/><br/>
+                                    <br/><br/><br/>
+                                    <label>Category(Select One):</label>
+                                              <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+                                    <ToggleButton onClick={this.handleRadioClick} value={"food"}>Food</ToggleButton>
+                                    <ToggleButton onClick={this.handleRadioClick} value={"drinks"}>Drinks</ToggleButton>
+                                    <ToggleButton onClick={this.handleRadioClick} value={"clean"}>Cleaning Product</ToggleButton>
+                                    <ToggleButton onClick={this.handleRadioClick} value={"others"}>Others</ToggleButton>
+                                  </ToggleButtonGroup>
+                                  <br/><br/>
 
 
-      <br/>
-        <input type="file" onChange={this.handleChange}/>
-        <button onClick={this.handleUpload}>Upload</button>
-        <br/>
-        <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="120" width="160"/>
+                                    <input type="file" onChange={this.handleChange}/>
+                                    <button onClick={this.handleUpload}>Upload</button>
+                                    <br/>
+
+                                    <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="120" width="160"/>
 
 
 

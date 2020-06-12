@@ -166,17 +166,17 @@ handleLogout = () => {
                             </div>
                         </div>
                     </Tab>
-                    <Tab eventKey="movement" title="Movement">
+                    <Tab eventKey="allocation" title="Allocation">
                                     <DndProvider backend = { HTML5Backend }>
 
-                                    <Header />;
+                                    <Header />
                                     <Homepage
                                     unsortedArray = {this.state.unsortedStuff}
                                     />
 
                                 </DndProvider>
                     </Tab>
-                    <Tab eventKey="request" title="Request">
+                    <Tab eventKey="cart" title="Cart">
                         <Header3 />
                         <div className="row">
                             <div className="col-12">
