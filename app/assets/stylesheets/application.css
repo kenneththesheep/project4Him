@@ -45,6 +45,26 @@
 
 
 }
+
+
+.selectedTab{
+	background-color: #CCCCCC;
+	color: black;
+}
+.selectedTab h2{
+	font-size: 30px
+}
+
+.notSelectedTab h2{
+	font-size:20px
+}
+.notSelectedTab:hover{
+background-color: black;
+color:white;
+}
+
+
+
 .loginBox {
 	background-color:#CCCCCC;
 	width:40%;

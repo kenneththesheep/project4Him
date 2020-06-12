@@ -196,7 +196,7 @@ uploadHandler=()=> {
                     console.log("plikca")
                     console.log(response)
 
-                            this.setState({productName: "", total_quantity:"", remarks:"", category:""})
+                            this.setState({productName: "", total_quantity:"", remarks:"", category:"", url:null})
 
                     }).catch((error)=>{
                     console.log(error);
@@ -363,9 +363,11 @@ uploadHandler=()=> {
         console.log(this.state.addForm)
         this.setState({category: event.target.value})
     }
-    addForm(){
+    addForm=()=>{
 
               this.setState({addForm:true})
+              console.log(this.refs["tab1"])
+              console.log(this.refs["tab2"])
             }
     createPosts(){
 
@@ -638,10 +640,10 @@ uploadHandler=()=> {
             <div className ="row justify-content-start ">
                 <div className = "col-2">
                 </div>
-                <div className = "col-3 border-top border-left border-right border-dark rounded-top ">
+                <div ref="tab1" className = {this.state.addForm? "selectedTab col-3 border-top border-left border-right border-dark rounded-top ":"notSelectedTab col-3 border-top border-left border-right border-bottom border-dark rounded-top"} >
                     <h2  onClick={()=>{ this.addForm() }}>Add Form</h2>
                 </div>
-                <div className = "col-3 border-top border-left border-right border-dark rounded-top ">
+                <div ref="tab2" className = {this.state.addForm?  "notSelectedTab col-3 border-top border-left border-right border-bottom border-dark rounded-top":"selectedTab col-3 border-top border-left border-right border-dark rounded-top "}>
                     <h2  onClick={()=>{ this.getPosts() }}>View</h2>
                 </div>
                 <div className = "col-3 border-bottom border-dark  ">
