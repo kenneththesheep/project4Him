@@ -45,7 +45,12 @@
 
 
 }
-
+.loginBox {
+	background-color:#CCCCCC;
+	width:40%;
+	left:300px;
+	position:absolute;
+}
 .carouselImage{
 	width: 50%;
 }
@@ -157,8 +162,9 @@ margin-left: 300px
 }
  .logoSize{
  	width:10%;
- 	position: relative;
- 	float:right;
+ 	position: absolute;
+ 	right:350px;
+ 	top:300px;
  	animation-name: jump;
 	animation-duration: 3s;
 	animation-iteration-count: infinite;
