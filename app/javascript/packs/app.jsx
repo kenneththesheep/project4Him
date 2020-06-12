@@ -136,12 +136,14 @@ handleLogout = () => {
 
                                 <h2>Mako House Inventory Management System </h2>
                                 <p>The future solution for the modern home. Do not fret as our system will help you manage what you deem as a "Sephiroth-level" disaster.</p>
-                                <h2>Some other crap</h2>
-                                <p>The standard Lorem Ipsum passage, used since the 1500s
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                                <h2>Some other crap</h2>
-                                <p>The standard Lorem Ipsum passage, used since the 1500s
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                                <h2>Who we are</h2>
+                                <p>TThe Shinra Electric Power Company, also known as Shinra Inc. (神羅カンパニー, Shinra Kanpanī?, lit. Shinra Company) and sometimes spelled Shin-Ra, is an industrial enterprise in the world of Final Fantasy VII. It is primarily a power company, supplying mako energy and making electricity easily and widely available. Its reach sees its presence as a megacorporation with significant underhanded influence into societal, infrastructural, and political spheres. Shinra also operates in genetic engineering, space exploration, and projects its power through a military that includes the elite group SOLDIER. Their military power, combined with their commercial monopoly on mako energy, gives Shinra a measure of control over the world populace.</p>
+                                <h2>What we do</h2>
+                                <p>Property upkeep covers such tasks as maintaining the structural soundness of the house; keeping plumbing, electrical wiring, and the heating/cooling system in good working order; maintaining or replacing major appliances (water heater, washer, dryer, refrigerator, etc.); and checking the house periodically for safety (good lighting, handrails where needed, rugs and carpets securely anchored, etc.) and security (locks and other security devices) measures.
+
+Exterior property maintenance includes keeping the roof, paint, or siding of the house in good shape; snow and ice removal; and lawn care or landscaping.
+
+Purchasing, insuring, and maintaining an automobile is generally considered a form of property upkeep, whether the car is kept in a garage or parked outside on the street.</p>
 
                             </div>
                             <div className ="col-4">
