@@ -17,12 +17,12 @@ class Help extends React.Component {
           <div className = "row">
 
             <ChatBot
-  headerTitle="Speech Synthesis"
-  speechSynthesis={{ enable: true, lang: 'en' }}
+  headerTitle="Help Chat"
+  speechSynthesis={{ enable: true, lang: 'zh-HK' }}
   steps={[
       {
         id: '1',
-        message: 'What would you like to do?',
+        message: 'Good day, what would you like to do?',
         trigger: '2',
       },
       {
@@ -37,7 +37,7 @@ class Help extends React.Component {
       },
       {
         id: '3',
-        message: 'Click on Inventory and click on the right tab.',
+        message: 'Click on Inventory and click on the correct tab.',
         trigger: '2',
       },
       {
@@ -67,7 +67,7 @@ class Help extends React.Component {
     },
     {
         id: '9',
-        message: 'Step 1: Go to inventory. Step 2: Click on Request for individual item. Step 3: Go to Cart and finally Click on Submit Request. Phew',
+        message: 'Here are the dummy steps. Step 1: Go to inventory. Step 2: Click on Request for individual item. Step 3: Go to Cart and finally Click on Submit Request.',
         trigger: '2'
       },
     ]}

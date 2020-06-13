@@ -6,12 +6,11 @@
 
 
 <%= javascript_pack_tag 'hello_react' %>
-<button class="testify1">
-<%= link_to 'Login', destroy_user_session_path, :method => :delete %>
-</button>
-<button class="testify">
-<%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
-</button>
+
+<%= link_to destroy_user_session_path, :method => :delete do%>
+  <%= image_tag("/power.png", :class=> "testify") %>
+<% end %>
+
 <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js">
 </script>

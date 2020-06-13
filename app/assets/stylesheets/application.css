@@ -20,16 +20,24 @@
   .testify1
  {
  	position: absolute;
- 	right:120px;
- 	top:700px;
- 	width:60px
+ 	right:22px;
+ 	top:695px;
+ 	width:40px;
+ 	height:40px;
+
  }
+
  .testify
  {
+
  	position: absolute;
  	right:30px;
  	top:700px;
+ 	width:30px
  }
+.testify:hover{
+	background-color: blue;
+}
 .bodyApp{
 	background-color:black;
 	height:100%;
