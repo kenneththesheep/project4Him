@@ -220,7 +220,7 @@ class All extends React.Component {
 
         console.log( 'plikca' )
         console.log( response )
-
+        alert(`You have successfully upload ${this.state.productName}`);
         this.setState( {
           productName: '',
           total_quantity: '',
