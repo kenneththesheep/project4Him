@@ -3,6 +3,7 @@ import React from "react";
 //import axios from 'axios';
 import All from "../components/all";
 import Request from "../components/request";
+import Help from "../components/help";
 import Header from "../components/header";
 import Header2 from "../components/header2";
 import Header3 from "../components/header3";
@@ -18,6 +19,10 @@ import axios from 'axios';
 import $ from 'jquery';
 import Cookies from 'universal-cookie';
 import Collapse from 'react-bootstrap/Collapse'
+import Accordion from 'react-bootstrap/Accordion'
+import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
+import Card from 'react-bootstrap/Card'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -87,8 +92,25 @@ handleLogout = () => {
                 })
             }
 
-    render() {
 
+
+
+    render() {
+        function CustomToggle({ children, eventKey }) {
+          const decoratedOnClick = useAccordionToggle(eventKey, () =>
+            console.log('totally custom!'),
+          );
+
+          return (
+            <button
+              type="button"
+              style={{ backgroundColor: '#CCCCCC', width: '75px' }}
+              onClick={decoratedOnClick}
+            >
+              {children}
+            </button>
+          );
+        }
         const productArray = event => {
             //console.log(event)
             //console.log("Something Something Something")
@@ -128,27 +150,49 @@ handleLogout = () => {
             <img className="companylogo2" src="/companylogo.png"/>
 
                 <Tabs  defaultActiveKey="home" id="uncontrolled-tab-example" >
-                    <Tab eventKey="home" title="Home">
+                    <Tab className=
+                    "bodyText" eventKey="home" title="About">
                         <Header4 />
                         <div className = "row">
-                            <div className ="col-8">
+                            <div className ="col-8 text-center">
+
+                                 <Accordion defaultActiveKey="0">
+
+                                     <h2 className="bodyText mt-4">Who we are</h2>
+                                     <br/>
+                              <CustomToggle eventKey="0"><img className="icon-tab" src = "/tag.png"/></CustomToggle>
+
+                              <br/>
+                            <Accordion.Collapse eventKey="0">
+                                <div className= "mt-5">
+
+                                    <p className="bodyText">TThe Shinra Electric Power Company, also known as Shinra Inc. (神羅カンパニー, Shinra Kanpanī?, lit. Shinra Company) and sometimes spelled Shin-Ra, is an industrial enterprise in the world of Final Fantasy VII. It is primarily a power company, supplying mako energy and making electricity easily and widely available.
+                                    </p>
+                                    <p className="bodyText">
+                                        Its reach sees its presence as a megacorporation with significant underhanded influence into societal, infrastructural, and political spheres. Shinra also operates in genetic engineering, space exploration, and projects its power through a military that includes the elite group SOLDIER. Their military power, combined with their commercial monopoly on mako energy, gives Shinra a measure of control over the world populace.</p>
+                                </div>
+                            </Accordion.Collapse>
+                                     <h2 className="bodyText  mt-4">Mako House Inventory Management System</h2>
+                                     <br/>
+                              <CustomToggle eventKey="1"><img className="icon-tab" src = "/tag.png"/></CustomToggle>
 
 
-                                <h2>Mako House Inventory Management System </h2>
-                                <p>The future solution for the modern home. Do not fret as our system will help you manage what you deem as a "Sephiroth-level" disaster.</p>
-                                <h2>Who we are</h2>
-                                <p>TThe Shinra Electric Power Company, also known as Shinra Inc. (神羅カンパニー, Shinra Kanpanī?, lit. Shinra Company) and sometimes spelled Shin-Ra, is an industrial enterprise in the world of Final Fantasy VII. It is primarily a power company, supplying mako energy and making electricity easily and widely available. Its reach sees its presence as a megacorporation with significant underhanded influence into societal, infrastructural, and political spheres. Shinra also operates in genetic engineering, space exploration, and projects its power through a military that includes the elite group SOLDIER. Their military power, combined with their commercial monopoly on mako energy, gives Shinra a measure of control over the world populace.</p>
-                                <h2>What we do</h2>
-                                <p>Property upkeep covers such tasks as maintaining the structural soundness of the house; keeping plumbing, electrical wiring, and the heating/cooling system in good working order; maintaining or replacing major appliances (water heater, washer, dryer, refrigerator, etc.); and checking the house periodically for safety (good lighting, handrails where needed, rugs and carpets securely anchored, etc.) and security (locks and other security devices) measures.
+                            <Accordion.Collapse eventKey="1">
+                                <div className ="mt-5">
+                                    <p className="bodyText">The future solution for the modern home. Do not fret as our system will help you manage what you deem as a "Sephiroth-level" disaster.</p>
+                                    <ol>
+                                        <li className="bodyText">Live update of purchases management</li>
+                                        <li className="bodyText">Live update of location of items for efficient store management </li>
+                                        <li className="bodyText">Quick contact to supply team when supply is low</li>
+                                </ol>
+                                </div>
+                            </Accordion.Collapse>
+    </Accordion>
 
-Exterior property maintenance includes keeping the roof, paint, or siding of the house in good shape; snow and ice removal; and lawn care or landscaping.
 
-Purchasing, insuring, and maintaining an automobile is generally considered a form of property upkeep, whether the car is kept in a garage or parked outside on the street.</p>
 
                             </div>
-                            <div className ="col-4">
 
-                            </div>
                         </div>
 
                     </Tab>
@@ -190,6 +234,15 @@ Purchasing, insuring, and maintaining an automobile is generally considered a fo
                             </div>
                         </div>
                     </Tab>
+
+                    <Tab eventKey="help" title="Help">
+
+                        <div className="row">
+                            <div className="col-12">
+                                <Help/>
+                            </div>
+                        </div>
+                    </Tab>
                 </Tabs>
 
 
@@ -199,7 +252,7 @@ Purchasing, insuring, and maintaining an automobile is generally considered a fo
             )
 
         return (
-            <div>
+            <div className="backbodyApp">
             {test}
             </div>
         );

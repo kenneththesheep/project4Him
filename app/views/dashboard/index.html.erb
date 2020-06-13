@@ -1,9 +1,17 @@
 <div class="bodyApp">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+<link href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap" rel="stylesheet">
+
+
 
 <%= javascript_pack_tag 'hello_react' %>
+<button class="testify1">
+<%= link_to 'Login', destroy_user_session_path, :method => :delete %>
+</button>
+<button class="testify">
 <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
+</button>
 <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js">
 </script>

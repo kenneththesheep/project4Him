@@ -13,11 +13,30 @@
  *= require_tree .
  *= require_self
  */
+
  body{
  	background-color:black;
  }
+  .testify1
+ {
+ 	position: absolute;
+ 	right:120px;
+ 	top:700px;
+ 	width:60px
+ }
+ .testify
+ {
+ 	position: absolute;
+ 	right:30px;
+ 	top:700px;
+ }
 .bodyApp{
 	background-color:black;
+	height:100%;
+}
+.backbodyApp{
+	background-color:black;
+	height:1000px
 }
  .carousel-caption h1 {
 		font-family: Garamond;
@@ -63,13 +82,16 @@ background-color: black;
 color:white;
 }
 
-
+.bodyText{
+	font-family: 'Aldrich', sans-serif;
+}
 
 .loginBox {
-	background-color:#CCCCCC;
-	width:40%;
-	left:300px;
-	position:absolute;
+	background-color:#333333;
+	width:300px;
+	padding: 50px;
+	color:#666666;
+
 }
 .carouselImage{
 	width: 50%;
@@ -107,9 +129,16 @@ margin-left: 300px
 }
 .nav-tabs.active a{
   	color:black;
+  	font-family: 'Aldrich', sans-serif;
+  	font-size:40px;
+}
+.icon-tab{
+	width:100%;
 }
 .nav-tabs a{
   	color:white;
+  	font-family: 'Aldrich', sans-serif;
+  	font-size:40px;
 }
 .nav-tabs.active{
 	background-color:red;
