@@ -8,13 +8,11 @@ import PropTypes from 'prop-types'
 import App from './app'
 
 const Hello = props => (
-    <div className ="bodyApp">
-  <div className = "container">
-
-  <App />
-
-  </div>
+  <div className="bodyApp">
+    <div className="container">
+      <App />
     </div>
+  </div>
 )
 
 Hello.defaultProps = {
@@ -25,9 +23,9 @@ Hello.propTypes = {
   name: PropTypes.string
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener( 'DOMContentLoaded', () => {
   ReactDOM.render(
     <Hello name="React" />,
-    document.body.appendChild(document.createElement('div')),
+    document.body.appendChild( document.createElement( 'div' ) ),
   )
-})
+} )
