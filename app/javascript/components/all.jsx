@@ -16,6 +16,8 @@ import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
 import ToggleButton from 'react-bootstrap/ToggleButton'
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup'
+import Popup from "reactjs-popup";
+
 class All extends React.Component {
   constructor() {
     super();
@@ -633,10 +635,13 @@ class All extends React.Component {
       <div className="col-4 mb-3">
         <div className="row">
           <div className=" col-12">
-            <img className="carouselImage"
+
+            <Popup trigger={<img className="carouselImage"
                  src={ inventory.image_url || 'http://via.placeholder.com/400x300' }
                  height="120"
-                 width="160"/>
+                 width="160"/>} closeOnDocumentClick position="right" offsetY={50} closeOnEscape>
+    <div><p>{inventory.remarks}</p></div>
+  </Popup>
       </div>
         </div>
         <div className="h-25 row">
@@ -861,6 +866,7 @@ class All extends React.Component {
           { togglevView }
         </div>
       </div>
+
     </div>
     );
   }

@@ -17,6 +17,13 @@
  body{
  	background-color:black;
  }
+
+ .popup-wrapper {
+  width: 100%;
+}
+.popup-wrapper > * {
+  width: 50%;
+}
   .testify1
  {
  	position: absolute;
