@@ -99,7 +99,7 @@ class App extends React.Component {
 
       return (
       <button type="button"
-              style={ { backgroundColor: '#CCCCCC', width: '75px' } }
+              style={ { backgroundColor: 'transparent', width: '75px', border: 'transparent' } }
               onClick={ decoratedOnClick }>
         { children }
       </button>
@@ -159,14 +159,14 @@ class App extends React.Component {
               <div className="row">
                 <div className="col-8 text-center">
                   <Accordion defaultActiveKey="0">
-                    <h2 className="bodyText mt-4">Who we are</h2>
+                    <h2 className="bodyTitle mt-3">Who we are</h2>
                     <br />
                     <CustomToggle eventKey="0">
-                      <img className="icon-tab" src = "/tag.png"/>
+                      <img className="icon-tab" src = "/ff7tag.png"/>
         </CustomToggle>
                     <br />
                     <Accordion.Collapse eventKey="0">
-                      <div className="mt-5">
+                      <div className="mt-4">
                         <p className="bodyText">
                           TThe Shinra Electric Power Company, also known as Shinra Inc. (神羅カンパニー, Shinra Kanpanī?, lit. Shinra Company) and sometimes spelled Shin-Ra, is an industrial enterprise in the world of Final Fantasy VII. It is primarily a power
                           company, supplying mako energy and making electricity easily and widely available.
@@ -177,13 +177,13 @@ class App extends React.Component {
                         </p>
                       </div>
                     </Accordion.Collapse>
-                    <h2 className="bodyText mt-4">Mako House Inventory Management System</h2>
+                    <h2 className="bodyTitle mt-4">Mako House Inventory Management System</h2>
                     <br />
                     <CustomToggle eventKey="1">
-                      <img className="icon-tab" src = "/tag.png"/>
+                      <img className="icon-tab" src = "/ff7tag.png"/>
         </CustomToggle>
                     <Accordion.Collapse eventKey="1">
-                      <div className="mt-5">
+                      <div className="mt-4">
                         <p className="bodyText">
                           The future solution for the modern home. Do not fret as our system will help you manage what you deem as a "Sephiroth-level" disaster.
                         </p>
@@ -216,12 +216,40 @@ class App extends React.Component {
                 </div>
               </div>
             </Tab>
+
             <Tab eventKey="allocation" title="Allocation">
-              <DndProvider backend={ HTML5Backend }>
-                <Header />
-                <Homepage unsortedArray={ this.state.unsortedStuff } />
-              </DndProvider>
+                <div class="row">
+                    <div class="col-12">
+                        <Header />
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3 text-center">
+                        <img className="unsorted" src = "/cart3.png"/>
+                    </div>
+                    <div class="col-3 text-center">
+                        <img className="toilet" src = "/toilet.png"/>
+                    </div>
+                    <div class="col-3 text-center">
+                        <img className="livingroom" src = "/livingroom.png"/>
+                    </div>
+                    <div class="col-3   ">
+                        <img className="kitchen" src = "/kitchen.png"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <DndProvider backend={ HTML5Backend }>
+
+                            <Homepage unsortedArray={ this.state.unsortedStuff } />
+                        </DndProvider>
+                    </div>
+                </div>
             </Tab>
+
             <Tab eventKey="cart" title="Cart">
               <Header3 />
               <div className="row">
@@ -234,7 +262,7 @@ class App extends React.Component {
             </Tab>
             <Tab eventKey="help" title="Help">
               <div className="row">
-                <div className="col-12">
+                <div className="col-12 mt-5">
                   <Help />
                 </div>
               </div>

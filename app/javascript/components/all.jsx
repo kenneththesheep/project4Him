@@ -632,13 +632,11 @@ class All extends React.Component {
       let button_plus_id = `${index}`
       return (
 
-      <div className="col-4 mb-3">
+      <div className="col-4 mt-3 mb-5 text-center">
         <div className="row">
           <div className=" col-12">
             <Popup trigger={ <img className="carouselImage"
-                                  src={ inventory.image_url || 'http://via.placeholder.com/400x300' }
-                                  height="120"
-                                  width="160"/> }
+                                  src={ inventory.image_url || 'http://via.placeholder.com/400x300' }/> }
                    closeOnDocumentClick
                    position="right"
                    offsetY={ 50 }
@@ -654,7 +652,6 @@ class All extends React.Component {
         <div className="h-25 row">
           <div className="col-12 pt-1">
             <p>
-              Invetory Name:
               { inventory.name }
             </p>
           </div>
@@ -787,8 +784,8 @@ class All extends React.Component {
       togglevView = (
 
 
-        <div className="col-7 text-center ">
-          <div className="row mt-5">
+        <div className="col-7 text-center pb-5  ">
+          <div className="row mt-4">
             <div className="col -12 text-left">
               <input className="inputwidht"
                      placeholder="Enter your Product"
@@ -805,7 +802,7 @@ class All extends React.Component {
                      onChange={ (event) => {
                                   this.changeRemarksHandler( event );
                                 } }></input>
-              <br /><br /><br />
+              <br /><br />
               <label>
                 Category(Select One):
               </label>
@@ -826,19 +823,21 @@ class All extends React.Component {
                 </ToggleButton>
               </ToggleButtonGroup>
               <br /><br />
+                            <img src={ this.state.url || 'http://via.placeholder.com/400x300' }
+                   alt="Uploaded images"
+                   height="120"
+                   width="160"/>
+                   <br/><br/>
               <input type="file" onChange={ this.handleChange } />
               <button onClick={ this.handleUpload }>
                 Upload
               </button>
               <br />
-              <img src={ this.state.url || 'http://via.placeholder.com/400x300' }
-                   alt="Uploaded images"
-                   height="120"
-                   width="160"/>
+
               <button className="buttonposition" onClick={ () => {
                                                              this.submitNew()
                                                            } }>
-                Submit
+                Submit New Item
               </button>
             </div>
           </div>
@@ -854,12 +853,12 @@ class All extends React.Component {
         <div className="col-2">
         </div>
         <div ref="tab1" className={ this.state.addForm ? 'selectedTab col-3 border-top border-left border-right border-dark rounded-top ' : 'notSelectedTab col-3 border-top border-left border-right border-bottom border-dark rounded-top' }>
-          <h2 onClick={ () => {
+          <h2 className="bodyTitle" onClick={ () => {
                           this.addForm()
                         } }>Add Form</h2>
         </div>
         <div ref="tab2" className={ this.state.addForm ? 'notSelectedTab col-3 border-top border-left border-right border-bottom border-dark rounded-top' : 'selectedTab col-3 border-top border-left border-right border-dark rounded-top ' }>
-          <h2 onClick={ () => {
+          <h2 className ="bodyTitle" onClick={ () => {
                           this.getPosts()
                         } }>View</h2>
         </div>

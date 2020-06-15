@@ -16,6 +16,8 @@
 
  body{
  	background-color:black;
+ 	background-image: url("/background.jpg");
+ 	background-size:cover;
  }
 
  .popup-wrapper {
@@ -48,10 +50,14 @@
 .bodyApp{
 	background-color:black;
 	height:100%;
+	background-image: url("/background.jpg");
+ 	background-size:cover;
 }
 .backbodyApp{
 	background-color:black;
-	height:1000px
+	height:1000px;
+		background-image: url("/background.jpg");
+ 	background-size:cover;
 }
  .carousel-caption h1 {
 		font-family: Garamond;
@@ -97,8 +103,26 @@ background-color: black;
 color:white;
 }
 
+.toilet, .kitchen{
+	width:100px;
+}
+.unsorted{
+	width:85px;
+	position: relative;
+	top: 25px;
+}
+.livingroom{
+	width:130px;
+	position:relative;
+	left:-30px;
+}
+
+.bodyTitle{
+		font-family: 'Aldrich', sans-serif;
+}
 .bodyText{
 	font-family: 'Aldrich', sans-serif;
+	font-size:14px;
 }
 
 .loginBox {
@@ -109,7 +133,8 @@ color:white;
 
 }
 .carouselImage{
-	width: 50%;
+	width: 150px;
+	max-height:60px;
 }
 .carouselBox{
 	height: 400px;
@@ -127,7 +152,8 @@ color:white;
     max-height: 650px;
     height: 650px;
     padding: 10px;
-    background-color: #CCCCCC;
+    background-color: rgba(204, 204, 204, 0.7);
+
 }
 
 .buttonposition{
@@ -148,7 +174,8 @@ margin-left: 300px
   	font-size:40px;
 }
 .icon-tab{
-	width:100%;
+	width:80%;
+
 }
 .nav-tabs a{
   	color:white;
@@ -234,14 +261,14 @@ margin-left: 300px
 	animation-iteration-count: infinite;
  }
 .frontcompanylogo{
-	width:60%;
+	width:50%;
 	 	animation-name: fadeInOnce;
 	animation-duration: 20s;
 	animation-iteration-count: infinite;
 }
 .fadeintrick{
 		 	animation-name: fadeInOnce;
-	animation-duration: 10s;
+	animation-duration: 5s;
 	animation-iteration-count: 1;
 }
 
@@ -345,6 +372,7 @@ margin-left: 300px
     flex: 1 100%;
     margin-top: 0;
     text-align: center;
+    font-family: 'Aldrich', sans-serif;
 }
 
 .modal {
