@@ -110,13 +110,18 @@ color:white;
 	width:85px;
 	position: relative;
 	top: 25px;
+	left:30px
 }
 .livingroom{
 	width:130px;
 	position:relative;
 	left:-30px;
 }
+.columnText{
+			font-family: 'Aldrich', sans-serif;
+			font-size: 20px;
 
+}
 .bodyTitle{
 		font-family: 'Aldrich', sans-serif;
 }
@@ -279,9 +284,9 @@ margin-left: 300px
 	animation-iteration-count: infinite;
  }
   .companylogo2{
- 	width:15%;
- 	right: 5px;
- 	top: -16px;
+ 	width:10%;
+ 	right: 86px;
+ 	top: 45px;
  	position: absolute;
  	z-index: 1000;
  }

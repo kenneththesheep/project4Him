@@ -59,13 +59,13 @@ class Request extends React.Component {
       return (
       <React.Fragment key={ index }>
         <div className="row">
-          <div className="col-6 border">
-            <p className="sampletext">
-              Item:
+          <div className="col-6 ">
+            <p className="sampletext bodyTitle">
+
               { product }
             </p>
           </div>
-          <div className="col-4 border">
+          <div className="col-4">
             <button id={ index }
                     ref="inputBox"
                     onClick={ (event) => {

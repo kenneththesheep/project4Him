@@ -216,8 +216,8 @@ const Homepage = (props) => {
     <div className={ "row" }>
       { statuses.map( s => {
           return (
-          <div key={ status } className={ "col-wrapper" }>
-            <h2 className={ "col-header" }>{ s.status.toUpperCase() }: { s.icon }</h2>
+          <div key={ status } className={ "col-wrapper text-center" }>
+            <h2 className={ "col-header, columnText" }>{ s.status.toUpperCase() }</h2>
             <DropWrapper onDrop={ onDrop } status={ s.status }>
               <Col>
               { items

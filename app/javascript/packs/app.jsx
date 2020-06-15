@@ -8,6 +8,7 @@ import Header from '../components/header';
 import Header2 from '../components/header2';
 import Header3 from '../components/header3';
 import Header4 from '../components/header4';
+import Header5 from '../components/header5';
 import Homepage from '../pages/homepage'
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -150,7 +151,7 @@ class App extends React.Component {
     else (
       test = (
         <div className="fadeintrick">
-          <img className="companylogo2" src="/companylogo.png"/>
+          <img className="companylogo2" src="/companylogofront.png"/>
           <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
             <Tab className="bodyText"
                  eventKey="home"
@@ -261,8 +262,9 @@ class App extends React.Component {
               </div>
             </Tab>
             <Tab eventKey="help" title="Help">
+                <Header5 />
               <div className="row">
-                <div className="col-12 mt-5">
+                <div className="col-12 mt-3">
                   <Help />
                 </div>
               </div>
