@@ -129,12 +129,22 @@ color:white;
 	font-family: 'Aldrich', sans-serif;
 	font-size:14px;
 }
-
+.nopadding {
+   padding-top: 30px	 !important;
+   margin-top: 0 !important;
+}
 .loginBox {
 	background-color:#333333;
 	width:300px;
 	padding: 50px;
-	color:#666666;
+	color:#E0E3E3;
+
+}
+.loginBox a{
+	color:#E0E3E3;
+}
+.textColour{
+	color:white;
 
 }
 .carouselImage{

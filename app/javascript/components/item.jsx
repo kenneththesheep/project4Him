@@ -59,10 +59,10 @@ const Item = ({item, index, moveItem, status}) => {
   <Fragment>
     <div ref={ ref }
          style={ { opacity: isDragging ? 0 : 1 } }
-         className={ "item" }
+         className={ "item mb-2" }
          onClick={ onOpen }>
       <div className={ "color-bar" } style={ { backgroundColor: status.color } } />
-      <p className={ "item-title" }>
+      <p className={ "item-title bodyTitle" }>
         { item.content }
       </p>
       <p className={ "item-status" }>

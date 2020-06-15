@@ -228,7 +228,7 @@ const Homepage = (props) => {
                                             index={ idx }
                                             moveItem={ moveItem }
                                             status={ s }></Item>
-                                      <button onClick={ () => {
+                                      <button className="mb-4" onClick={ () => {
                                                           removal( event )
                                                         } } id={ i.id }>
                                         X
